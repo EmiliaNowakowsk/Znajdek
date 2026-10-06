@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: znajdek-db
+    environment:
+      POSTGRES_DB: znajdek
+      POSTGRES_USER: znajdek
+      POSTGRES_PASSWORD: znajdek_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
