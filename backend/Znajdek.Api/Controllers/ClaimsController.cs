@@ -17,6 +17,26 @@ public class ClaimsController : ControllerBase
         _context = context;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ClaimDto>>> GetClaims()
+    {
+        var claims = await _context.Claims
+            .AsNoTracking()
+            .Select(claim => new ClaimDto
+            {
+                Id = claim.Id,
+                ItemId = claim.ItemId,
+                UserId = claim.UserId,
+                VerificationAnswer = claim.VerificationAnswer,
+                Status = claim.Status,
+                CreatedAt = claim.CreatedAt,
+                VerifiedAt = claim.VerifiedAt
+            })
+            .ToListAsync();
+
+        return Ok(claims);
+    }
+
     [HttpPost]
     public async Task<ActionResult<ClaimDto>> CreateClaim(CreateClaimDto dto)
     {
@@ -120,5 +140,54 @@ public class ClaimsController : ControllerBase
         }
 
         return Ok(claim);
+    }
+
+    [HttpPut("{id}/verify")]
+    public async Task<ActionResult<ClaimDto>> VerifyClaim(
+        int id,
+        VerifyClaimDto dto)
+    {
+        var claim = await _context.Claims
+            .Include(claim => claim.Item)
+            .FirstOrDefaultAsync(claim => claim.Id == id);
+
+        if (claim == null)
+        {
+            return NotFound(new
+            {
+                message = "Nie znaleziono roszczenia."
+            });
+        }
+
+        if (claim.Status != "PENDING")
+        {
+            return BadRequest(new
+            {
+                message = "To roszczenie zostało już zweryfikowane."
+            });
+        }
+
+        claim.Status = dto.Approved ? "APPROVED" : "REJECTED";
+        claim.VerifiedAt = DateTime.UtcNow;
+
+        if (dto.Approved)
+        {
+            claim.Item.Status = "RETURNED";
+        }
+
+        await _context.SaveChangesAsync();
+
+        var result = new ClaimDto
+        {
+            Id = claim.Id,
+            ItemId = claim.ItemId,
+            UserId = claim.UserId,
+            VerificationAnswer = claim.VerificationAnswer,
+            Status = claim.Status,
+            CreatedAt = claim.CreatedAt,
+            VerifiedAt = claim.VerifiedAt
+        };
+
+        return Ok(result);
     }
 }
