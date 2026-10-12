@@ -5,15 +5,10 @@
 - `prototype-2/index.html` — rozwinięty układ z filtrowaniem po uczelni, typie zgłoszenia i wyszukiwanej frazie.
 
 ## Uruchomienie
-Otwórz plik `index.html` w wybranym folderze w przeglądarce. Nie są potrzebne dodatkowe biblioteki ani serwer.
+
+Aby zobaczyć prototyp, otwórz plik `index.html` w przeglądarce. Nie trzeba instalować dodatkowych bibliotek ani uruchamiać serwera.
 
 ## Ograniczenia
-To prototypy interfejsu z danymi demonstracyjnymi. Nie są podłączone do backendu ani PostgreSQL, a formularze tylko pokazują podgląd i nie zapisują danych.
 
-## Dodanie do repozytorium Znajdek
-Skopiuj folder `prototypes` do katalogu głównego repozytorium. Następnie w terminalu w katalogu repozytorium wykonaj:
-```bash
-git add prototypes
-git commit -m "Add initial Znajdek UI prototypes"
-git push
-```
+Prototypy służą do pokazania wyglądu i podstawowego układu interfejsu. Wykorzystują przykładowe dane i nie są jeszcze połączone z backendem ani bazą danych. Formularze nie zapisują zgłoszeń.
+
