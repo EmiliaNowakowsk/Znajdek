@@ -19,6 +19,10 @@ public class CreateItemDto
     [StringLength(100, ErrorMessage = "Kategoria może mieć maksymalnie 100 znaków.")]
     public string Category { get; set; } = string.Empty;
 
+    [Required(ErrorMessage = "Uczelnia jest wymagana.")]
+    [StringLength(150, ErrorMessage = "Nazwa uczelni może mieć maksymalnie 150 znaków.")]
+    public string University { get; set; } = string.Empty;
+
     [Required(ErrorMessage = "Lokalizacja jest wymagana.")]
     [StringLength(200, ErrorMessage = "Lokalizacja może mieć maksymalnie 200 znaków.")]
     public string Location { get; set; } = string.Empty;

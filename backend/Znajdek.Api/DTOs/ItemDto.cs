@@ -7,6 +7,7 @@ public class ItemDto
     public string Description { get; set; } = string.Empty;
     public string Type { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
+    public string University { get; set; } = string.Empty;
     public string Location { get; set; } = string.Empty;
     public DateTime Date { get; set; }
     public string Status { get; set; } = string.Empty;

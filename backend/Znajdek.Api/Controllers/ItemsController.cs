@@ -23,6 +23,7 @@ public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(
     string? search,
     string? type,
     string? category,
+    string? university,
     string? location,
     string? status)
 {
@@ -48,7 +49,11 @@ public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(
         query = query.Where(item =>
             item.Category == category);
     }
-
+    if (!string.IsNullOrWhiteSpace(university))
+    {
+        query = query.Where(item =>
+            item.University == university);
+    }
     if (!string.IsNullOrWhiteSpace(location))
     {
         query = query.Where(item =>
@@ -59,7 +64,7 @@ public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(
     {
         query = query.Where(item =>
             item.Status == status);
-    }
+  }
 
     var items = await query
         .Select(item => new ItemDto
@@ -69,6 +74,7 @@ public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(
             Description = item.Description,
             Type = item.Type,
             Category = item.Category,
+            University = item.University,
             Location = item.Location,
             Date = item.Date,
             Status = item.Status,
@@ -93,6 +99,7 @@ public async Task<ActionResult<IEnumerable<ItemDto>>> GetItems(
                 Description = item.Description,
                 Type = item.Type,
                 Category = item.Category,
+                University = item.University,
                 Location = item.Location,
                 Date = item.Date,
                 Status = item.Status,
@@ -138,6 +145,7 @@ if (!userExists)
     Description = dto.Description,
     Type = dto.Type,
     Category = dto.Category,
+    University = dto.University,
     Location = dto.Location,
     Date = DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
     Status = "ACTIVE",
@@ -154,6 +162,7 @@ if (!userExists)
             Description = item.Description,
             Type = item.Type,
             Category = item.Category,
+            University = item.University,
             Location = item.Location,
             Date = item.Date,
             Status = item.Status,

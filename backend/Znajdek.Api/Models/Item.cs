@@ -12,6 +12,8 @@ public class Item
 
     public string Category { get; set; } = string.Empty;
 
+    public string University { get; set; } = string.Empty;
+    
     public string Location { get; set; } = string.Empty;
 
     public DateTime Date { get; set; }
